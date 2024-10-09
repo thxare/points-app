@@ -1,35 +1,16 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
+import LayoutGame from "../../layouts/LayoutGame.astro";
+import Button from "../../ui/Button.astro";
+
 ---
 
-<Layout title="Welcome to Astro.">
+<LayoutGame title="Partidas">
   <main>
-    <h1>Contador de <span class="text-gradient">puntos</span></h1>
-    <ul role="list" class="link-card-grid">
-      <Card
-        href="/games/pool"
-        title="Pool"
-        urlImage="https://play-lh.googleusercontent.com/bPz1guJ6FHF3oIOEy3KqwpaDDKO-hLRaZoyzmM8bLFLN8fWm6L0_EuUnkwv9iqPo3Ag"
-      />
-      <Card
-        href="/games/monopoly"
-        title="Monopoly"
-        urlImage="https://play-lh.googleusercontent.com/bPz1guJ6FHF3oIOEy3KqwpaDDKO-hLRaZoyzmM8bLFLN8fWm6L0_EuUnkwv9iqPo3Ag"
-      />
-      <Card
-        href="/games/catan"
-        title="Catan"
-        urlImage="https://play-lh.googleusercontent.com/bPz1guJ6FHF3oIOEy3KqwpaDDKO-hLRaZoyzmM8bLFLN8fWm6L0_EuUnkwv9iqPo3Ag"
-      />
-      <Card
-        href="/games/gartic-phone"
-        title="Gartic Phone"
-        urlImage="https://esports.as.com/2021/02/15/bonus/videojuegos/Gartic-Phone_1438066191_584913_1440x810.png"
-      />
-    </ul>
+    <h1>Nueva <span class="text-gradient">Partida</span></h1>
+
+    <Button title="Regresar a Inicio →" path="/" />
   </main>
-</Layout>
+</LayoutGame>
 
 <style>
   main {
@@ -40,6 +21,9 @@ import Card from "../components/Card.astro";
     color: white;
     font-size: 20px;
     line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
   .astro-a {
     position: absolute;

@@ -1,35 +1,56 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
+import LayoutGame from "../../layouts/LayoutGame.astro";
+import CardGame from "../../components/CardGame.astro";
+import Button from "../../ui/Button.astro";
+
+export async function getStaticPaths() {
+  return [
+    { params: { game: "pool" } },
+    { params: { game: "monopoly" } },
+    { params: { game: "catan" } },
+    { params: { game: "gartic-phone" } },
+  ];
+}
+
+const { game } = Astro.params;
+
+const arr = [
+  { path: "pool", name: "Pool" },
+  { path: "monopoly", name: "Monopoly" },
+  { path: "catan", name: "Catán" },
+  { path: "gartic-phone", name: "Gartic Phone" },
+];
+const currentGame = arr.find((g) => g.path === game);
+const playersArr = ["Thiare", "Loki", "vicente"];
 ---
 
-<Layout title="Welcome to Astro.">
+<LayoutGame title="Partidas">
   <main>
-    <h1>Contador de <span class="text-gradient">puntos</span></h1>
+    <h1><span class="text-gradient">{currentGame.name}</span></h1>
     <ul role="list" class="link-card-grid">
-      <Card
-        href="/games/pool"
-        title="Pool"
-        urlImage="https://play-lh.googleusercontent.com/bPz1guJ6FHF3oIOEy3KqwpaDDKO-hLRaZoyzmM8bLFLN8fWm6L0_EuUnkwv9iqPo3Ag"
+      <CardGame
+        date="2024-10-06"
+        winner="Ayleen"
+        id={1234}
+        players={playersArr}
       />
-      <Card
-        href="/games/monopoly"
-        title="Monopoly"
-        urlImage="https://play-lh.googleusercontent.com/bPz1guJ6FHF3oIOEy3KqwpaDDKO-hLRaZoyzmM8bLFLN8fWm6L0_EuUnkwv9iqPo3Ag"
+      <CardGame
+        date="2024-10-06"
+        winner="Ayleen"
+        id={1234}
+        players={playersArr}
       />
-      <Card
-        href="/games/catan"
-        title="Catan"
-        urlImage="https://play-lh.googleusercontent.com/bPz1guJ6FHF3oIOEy3KqwpaDDKO-hLRaZoyzmM8bLFLN8fWm6L0_EuUnkwv9iqPo3Ag"
-      />
-      <Card
-        href="/games/gartic-phone"
-        title="Gartic Phone"
-        urlImage="https://esports.as.com/2021/02/15/bonus/videojuegos/Gartic-Phone_1438066191_584913_1440x810.png"
+      <CardGame
+        date="2024-10-06"
+        winner="Ayleen"
+        id={1234}
+        players={playersArr}
       />
     </ul>
+    <Button title="Agregar Nueva Partida" path="/games/new-game"/>
+    <Button title="Regresar a Inicio &rarr;" path="/"/>
   </main>
-</Layout>
+</LayoutGame>
 
 <style>
   main {
@@ -40,6 +61,9 @@ import Card from "../components/Card.astro";
     color: white;
     font-size: 20px;
     line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
   .astro-a {
     position: absolute;

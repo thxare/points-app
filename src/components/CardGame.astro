@@ -1,23 +1,28 @@
 ---
 interface Props {
-  title: string;
-  urlImage: string;
-  href: string;
+  date: string;
+  winner: string;
+  id: number;
+  players: string[];
 }
 
-const { href, title, urlImage } = Astro.props;
+const { date, winner, id, players } = Astro.props;
+const playersNames = players.join(", ");
 ---
 
 <li class="link-card">
-  <a href={href}>
-    <h2>
-      {title}
-      <span>&rarr;</span>
-    </h2>
-    <div class="card-image">
-      <img src={urlImage} alt={title} />
+  <div class="winners">
+    <h2>Partida numero {id}</h2>
+    <div>
+      <span class="winner">Ganador</span>: {winner}
     </div>
-  </a>
+    <div>
+      Participantes: {playersNames}
+    </div>
+    <span class="date">
+      {date}
+    </span>
+  </div>
 </li>
 <style>
   .link-card {
@@ -32,7 +37,7 @@ const { href, title, urlImage } = Astro.props;
     transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   }
-  .link-card > a {
+  .link-card > .winners {
     width: 100%;
     text-decoration: none;
     line-height: 1.4;
@@ -54,6 +59,9 @@ const { href, title, urlImage } = Astro.props;
     width: 100%;
     height: 100%;
     object-fit: contain;
+  }
+  .date {
+    font-size: .8rem;
   }
   h2 {
     margin: 0;
