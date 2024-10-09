@@ -6,41 +6,48 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  justify-content: center;
+  align-items: center;
 }
 .players ul p {
   padding: 0;
   margin: 0;
 }
-.players ul li {
-  margin: 10px 0;
+.players ul {
+  padding: 0;
+  width: 100%;
+}
+.players > ul > li {
+  margin: 5px 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
-.players ul li .buttons {
+.players > ul > li > .buttons {
   display: flex;
   flex-direction: row;
-  gap: 10px;
 }
 .newPlayer {
   display: flex;
   flex-direction: row;
   gap: 10px;
+  width: 100%;
+  justify-content: space-between;
 }
-.newPlayer .button {
+.form .button {
   background-color: #006dcd;
   color: rgb(212, 215, 217);
   border-radius: 8px;
   border: none;
   padding: 8px 16px;
   cursor: pointer;
-  width: 15%;
 }
-.newPlayer .button:hover {
+.form .button:hover {
   background-color: #2383d8;
 }
-.players input {
-  width: 75%;
+
+.newPlayer > input {
   display: flex;
   padding: 12px 15px;
   background-color: #23262d;
@@ -50,14 +57,18 @@
   transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   color: aliceblue;
+  width: 85%;
 }
 .listPlayers {
+  padding: 8px 20px;
   list-style: none;
-  color: #636780;
-  font-size: 18px;
+  border-radius: 12px;
+  color: aliceblue;
+  font-size: 15px;
   display: flex;
   flex-direction: row;
   gap: 15px;
+  background: #636780;
 }
 .winnerPlayer {
   background-color: #006dcd;

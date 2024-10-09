@@ -1,7 +1,7 @@
 ---
 import LayoutGame from "../../layouts/LayoutGame.astro";
-import CardGame from "../../components/CardGame.astro";
 import Button from "../../ui/Button.astro";
+import GameList from "../../components/GameList";
 
 export async function getStaticPaths() {
   return [
@@ -31,32 +31,12 @@ const arr = [
   { path: "uno", name: "UNO", gameUrl: "https://buddyboardgames.com/uno" },
 ];
 const currentGame = arr.find((g) => g.path === game);
-const playersArr = ["Thiare", "Loki", "vicente"];
 ---
 
 <LayoutGame title="Partidas">
   <main>
     <h1><span class="text-gradient">{currentGame.name}</span></h1>
-    <ul role="list" class="link-card-grid">
-      <CardGame
-        date="2024-10-06"
-        winner="Ayleen"
-        id={1234}
-        players={playersArr}
-      />
-      <CardGame
-        date="2024-10-06"
-        winner="Ayleen"
-        id={1234}
-        players={playersArr}
-      />
-      <CardGame
-        date="2024-10-06"
-        winner="Ayleen"
-        id={1234}
-        players={playersArr}
-      />
-    </ul>
+    <GameList game={game} client:load/>
     <Button
       title="Agregar Nueva Partida"
       path=`/games/new-game/${currentGame.path}`

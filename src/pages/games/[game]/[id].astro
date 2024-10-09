@@ -1,28 +1,33 @@
 ---
 import LayoutGame from "../../../layouts/LayoutGame.astro";
+import { db } from "../../../lib/firebaseConfig"; // Importa tu configuración de Firebase
+import { collection, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import Button from "../../../ui/Button.astro";
-import { Form } from "../../../components/Form";
+import GameList from "../../../components/GameList";
+
 export async function getStaticPaths() {
-  return [
-    { params: { game: "pool" } },
-    { params: { game: "monopoly" } },
-    { params: { game: "catan" } },
-    { params: { game: "gartic-phone" } },
-    { params: { game: "poker" } },
-    { params: { game: "skribbl" } },
-  ];
+  const gamesCollection = collection(db, "gamesPlayed");
+  const gamesSnapshot = await getDocs(gamesCollection);
+
+  const paths = gamesSnapshot.docs.flatMap((doc) => {
+    const data = doc.data();
+    return {
+      params: {
+        game: data.game,
+        id: doc.id,
+      },
+    };
+  });
+
+  return paths;
 }
-const { game } = Astro.params;
+
+const { game, id } = Astro.params;
+console.log(game);
 ---
 
-<LayoutGame title="Partidas">
-  <main>
-    <h1>Nueva partida de <span class="text-gradient">{game}</span></h1>
-    <Form game={game} client:load />
-    <Button title="Listo" path=`/games/${game}` target={false} />
-    <Button title="Regresar a Inicio →" path="/" target={false} />
-  </main>
-</LayoutGame>
+<LayoutGame title="Partidas" />
 
 <style>
   main {
@@ -37,7 +42,6 @@ const { game } = Astro.params;
     flex-direction: column;
     gap: 10px;
   }
-
   .astro-a {
     position: absolute;
     top: -32px;
