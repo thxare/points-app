@@ -1,13 +1,13 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp, getApps } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDOIFbtgnwe2nIZL2YjwyXucRmsSy8a0gQ",
-  authDomain: "game-app-44d81.firebaseapp.com",
-  projectId: "game-app-44d81",
-  storageBucket: "game-app-44d81.appspot.com",
-  messagingSenderId: "884562206126",
-  appId: "1:884562206126:web:2b802092b46876e7f6fc3f",
+  apiKey: import.meta.env.PUBLIC_API_KEY,
+  authDomain: import.meta.env.PUBLIC_AUTH_DOMAIN,
+  projectId: import.meta.env.PUBLIC_PROJECT_ID,
+  storageBucket: import.meta.env.PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.PUBLIC_MESSAGING_SENDER_ID,
+  appId: import.meta.env.PUBLIC_APP_ID,
 };
 
 let app;

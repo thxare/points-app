@@ -2,9 +2,7 @@
 import LayoutGame from "../../../layouts/LayoutGame.astro";
 import { db } from "../../../lib/firebaseConfig"; // Importa tu configuración de Firebase
 import { collection, getDocs } from "firebase/firestore";
-import { doc, getDoc } from "firebase/firestore";
-import Button from "../../../ui/Button.astro";
-import GameList from "../../../components/GameList";
+import Game from "../../../components/Game.astro";
 
 export async function getStaticPaths() {
   const gamesCollection = collection(db, "gamesPlayed");
@@ -24,10 +22,11 @@ export async function getStaticPaths() {
 }
 
 const { game, id } = Astro.params;
-console.log(game);
 ---
 
-<LayoutGame title="Partidas" />
+<LayoutGame title="Partidas">
+  <Game id={id} game={game} />
+</LayoutGame>
 
 <style>
   main {

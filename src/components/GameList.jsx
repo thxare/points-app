@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styles from "./GameList.module.css";
 import { db } from "../lib/firebaseConfig";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  deleteDoc,
+  doc
+} from "firebase/firestore";
 import { CardGame } from "./CardGame.jsx";
 
 const GameList = ({ game }) => {
@@ -21,13 +28,23 @@ const GameList = ({ game }) => {
     setGamesPlayed(games);
   };
 
+  const onDelete = async (id) => {
+    try {
+      const docRef = doc(db, "gamesPlayed", id);
+      await deleteDoc(docRef);
+
+      const cardDeleted = gamesPlayed.filter((game) => game.id !== id);
+      setGamesPlayed(cardDeleted);
+    } catch (error) {
+      console.error("Error al eliminar el documento: ", error);
+    }
+  };
+
   useEffect(() => {
     loadGamesFromFirestore();
   }, [game]);
 
-  useEffect(() => {
-    console.log("gamesPlayed ha cambiado:", gamesPlayed);
-  }, [gamesPlayed]);
+  useEffect(() => {}, [gamesPlayed]);
 
   return (
     <ul role="list" className={styles.linkCardGrid}>
@@ -40,6 +57,7 @@ const GameList = ({ game }) => {
             // winner={gameData.winner}
             id={gameData.id}
             players={gameData.players}
+            onDelete={onDelete}
           />
         ))
       ) : (

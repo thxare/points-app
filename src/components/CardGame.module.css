@@ -16,10 +16,20 @@
   text-decoration: none;
   line-height: 1.4;
   padding: calc(1.5rem - 1px);
-  border-radius: 8px;
+  border-radius: 8px 0 0 8px;
   color: white;
   background-color: #23262d;
   opacity: 0.8;
+}
+.button {
+  background-color: #23262d;
+  color: white;
+  border-radius: 0 8px 8px 0;
+  outline: none;
+  border: none;
+}
+.button:active {
+  background-color: #a91f1f;
 }
 .date {
   font-size: 0.8rem;
@@ -33,6 +43,7 @@ h2 {
   background-position: 0;
   background-image: var(--accent-gradient);
 }
-.linkCard:is(:hover, :focus-within) h2 {
+.linkCard:is(:hover, :focus-within) h2,
+.button {
   color: rgb(var(--accent-light));
 }
