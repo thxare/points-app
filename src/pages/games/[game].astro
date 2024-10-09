@@ -47,8 +47,11 @@ const playersArr = ["Thiare", "Loki", "vicente"];
         players={playersArr}
       />
     </ul>
-    <Button title="Agregar Nueva Partida" path="/games/new-game"/>
-    <Button title="Regresar a Inicio &rarr;" path="/"/>
+    <Button
+      title="Agregar Nueva Partida"
+      path=`/games/new-game/${currentGame.path}`
+    />
+    <Button title="Regresar a Inicio →" path="/" />
   </main>
 </LayoutGame>
 

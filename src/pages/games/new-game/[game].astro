@@ -1,13 +1,23 @@
 ---
-import LayoutGame from "../../layouts/LayoutGame.astro";
-import Button from "../../ui/Button.astro";
-
+import LayoutGame from "../../../layouts/LayoutGame.astro";
+import Button from "../../../ui/Button.astro";
+import { Form } from "../../../components/Form";
+export async function getStaticPaths() {
+  return [
+    { params: { game: "pool" } },
+    { params: { game: "monopoly" } },
+    { params: { game: "catan" } },
+    { params: { game: "gartic-phone" } },
+  ];
+}
+const { game } = Astro.params;
 ---
 
 <LayoutGame title="Partidas">
   <main>
-    <h1>Nueva <span class="text-gradient">Partida</span></h1>
-
+    <h1>Nueva partida de <span class="text-gradient">{game}</span></h1>
+    <Form client:load />
+    <Button title="Listo" path=`/games/${game}` />
     <Button title="Regresar a Inicio →" path="/" />
   </main>
 </LayoutGame>
@@ -25,6 +35,7 @@ import Button from "../../ui/Button.astro";
     flex-direction: column;
     gap: 10px;
   }
+
   .astro-a {
     position: absolute;
     top: -32px;
