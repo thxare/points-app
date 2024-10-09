@@ -2,11 +2,14 @@
 interface Props {
   title: string;
   path: string;
+  target: boolean;
 }
-const { title, path } = Astro.props;
+const { title, path, target } = Astro.props;
 ---
 
-<a class="button-game" href={path}> <span class="text">{title} </span></a>
+<a class="button-game" href={path} target={target ? "_blank" : ""}>
+  <span class="text">{title} </span></a
+>
 <style>
   .button-game {
     display: flex;

@@ -9,16 +9,26 @@ export async function getStaticPaths() {
     { params: { game: "monopoly" } },
     { params: { game: "catan" } },
     { params: { game: "gartic-phone" } },
+    { params: { game: "poker" } },
+    { params: { game: "skribbl" } },
+    { params: { game: "uno" } },
   ];
 }
 
 const { game } = Astro.params;
 
 const arr = [
-  { path: "pool", name: "Pool" },
-  { path: "monopoly", name: "Monopoly" },
-  { path: "catan", name: "Catán" },
-  { path: "gartic-phone", name: "Gartic Phone" },
+  { path: "pool", name: "Pool", gameUrl: "https://bloob.io/8ballpool" },
+  { path: "monopoly", name: "Monopoly", gameUrl: "https://richup.io/" },
+  { path: "catan", name: "Catán", gameUrl: "https://colonist.io/" },
+  { path: "poker", name: "Poker", gameUrl: "https://www.pokernow.club/" },
+  {
+    path: "gartic-phone",
+    name: "Gartic Phone",
+    gameUrl: "https://garticphone.com/es",
+  },
+  { path: "skribbl", name: "Skribbl", gameUrl: "https://skribbl.io/" },
+  { path: "uno", name: "UNO", gameUrl: "https://buddyboardgames.com/uno" },
 ];
 const currentGame = arr.find((g) => g.path === game);
 const playersArr = ["Thiare", "Loki", "vicente"];
@@ -50,8 +60,10 @@ const playersArr = ["Thiare", "Loki", "vicente"];
     <Button
       title="Agregar Nueva Partida"
       path=`/games/new-game/${currentGame.path}`
+      target={false}
     />
-    <Button title="Regresar a Inicio →" path="/" />
+    <Button path={currentGame.gameUrl} title="JUGAR" target={true} />
+    <Button title="Regresar a Inicio →" path="/" target={false} />
   </main>
 </LayoutGame>
 

@@ -8,6 +8,8 @@ export async function getStaticPaths() {
     { params: { game: "monopoly" } },
     { params: { game: "catan" } },
     { params: { game: "gartic-phone" } },
+    { params: { game: "poker" } },
+    { params: { game: "skribbl" } },
   ];
 }
 const { game } = Astro.params;
@@ -17,8 +19,8 @@ const { game } = Astro.params;
   <main>
     <h1>Nueva partida de <span class="text-gradient">{game}</span></h1>
     <Form client:load />
-    <Button title="Listo" path=`/games/${game}` />
-    <Button title="Regresar a Inicio →" path="/" />
+    <Button title="Listo" path=`/games/${game}` target={false} />
+    <Button title="Regresar a Inicio →" path="/" target={false} />
   </main>
 </LayoutGame>
 
