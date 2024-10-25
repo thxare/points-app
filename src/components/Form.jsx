@@ -1,36 +1,40 @@
 import React, { useState } from "react";
+import Select from "react-select";
 import styles from "./Form.module.css";
 import { db } from "../lib/firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 
-export const Form = ({ game }) => {
+export const Form = ({ game, players }) => {
   const [player, setPlayer] = useState("");
-  const [players, setPlayers] = useState([
-    { name: "Thiare", id: crypto.randomUUID() },
-  ]);
+  const [playersState, setPlayersState] = useState(players);
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]); // Establece la fecha en el formato correcto
+
+  const options = playersState.map((player) => ({
+    value: player.values.id,
+    label: player.values.name,
+  }));
 
   const onAdd = (e) => {
     e.preventDefault();
     if (player) {
       const newPlayer = { name: player, id: crypto.randomUUID() };
-      setPlayers((prevPlayers) => [...prevPlayers, newPlayer]);
+      setPlayersState((prevPlayers) => [...prevPlayers, newPlayer]);
       setPlayer("");
     }
   };
 
   const onDelete = (id) => {
-    const updatedPlayers = players.filter((player) => player.id !== id);
-    setPlayers(updatedPlayers);
+    const updatedPlayers = playersState.filter(
+      (player) => player.values.id !== id
+    );
+    setPlayersState(updatedPlayers);
   };
 
-  // Función para manejar la fecha
   const handleDate = (e) => {
     setDate(e.target.value);
   };
 
   const saveGameToFirestore = async (newGame) => {
-    console.log(newGame);
     try {
       await addDoc(collection(db, "gamesPlayed"), newGame);
       console.log("Partida guardada en Firestore");
@@ -39,13 +43,12 @@ export const Form = ({ game }) => {
     }
   };
 
-  // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newGame = {
       game,
       date,
-      players,
+      playersState,
       timestamp: Date.now(),
     };
     await saveGameToFirestore(newGame);
@@ -66,25 +69,26 @@ export const Form = ({ game }) => {
       <div className={styles.players}>
         <label>Participantes</label>
         <div className={styles.newPlayer}>
-          <input
+          {/* <input
             type="text"
             placeholder="Nombre"
             onChange={(e) => setPlayer(e.target.value)}
             value={player}
-          />
+          /> */}
+          <Select name="players" options={options} className="" isMulti />
           <button className={styles.button} type="button" onClick={onAdd}>
             Agregar
           </button>
         </div>
         <ul>
-          {players.map((player) => (
-            <li key={player.id} className={styles.listPlayers}>
-              <p>{player.name}</p>
+          {playersState.map((player) => (
+            <li key={player.values.id} className={styles.listPlayers}>
+              <p>{player.values.name}</p>
               <div className={styles.buttons}>
                 <button
                   className={styles.deletePlayer}
                   type="button"
-                  onClick={() => onDelete(player.id)}
+                  onClick={() => onDelete(player.values.id)}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +109,7 @@ export const Form = ({ game }) => {
           ))}
         </ul>
       </div>
-      <button className={styles.button} type="submit">
+      <button className={styles.button} href={`/games/${game}`}>
         Guardar Partida
       </button>
     </form>

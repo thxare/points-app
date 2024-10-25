@@ -7,7 +7,7 @@ import {
   where,
   getDocs,
   deleteDoc,
-  doc
+  doc,
 } from "firebase/firestore";
 import { CardGame } from "./CardGame.jsx";
 
@@ -49,17 +49,19 @@ const GameList = ({ game }) => {
   return (
     <ul role="list" className={styles.linkCardGrid}>
       {gamesPlayed.length > 0 ? (
-        gamesPlayed.map((gameData) => (
-          <CardGame
-            key={gameData.id}
-            date={gameData.date}
-            game={game}
-            // winner={gameData.winner}
-            id={gameData.id}
-            players={gameData.players}
-            onDelete={onDelete}
-          />
-        ))
+        gamesPlayed.map((gameData) => {
+          return (
+            <CardGame
+              key={gameData.id}
+              date={gameData.date}
+              game={game}
+              // winner={gameData.winner}
+              id={gameData.id}
+              players={gameData.players}
+              onDelete={onDelete}
+            />
+          );
+        })
       ) : (
         <p>No hay partidas registradas</p>
       )}

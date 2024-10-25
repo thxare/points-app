@@ -1,12 +1,11 @@
+"use client";
 import React, { useEffect } from "react";
 import styles from "./CardGame.module.css";
 
 export const CardGame = ({ date, winner, id, players, game, onDelete }) => {
-  const playersNames = players.map((player) => player.name).join(", ");
-  useEffect(() => {
-    console.log(game);
-  }, [id]);
-
+  const playersNames =
+    players && players.map((player) => player.name).join(", ");
+  useEffect(() => {}, [id]);
   return (
     <li className={styles.linkCard} key={id}>
       <a className={styles.winners} href={`/games/${game}/${id}`}>

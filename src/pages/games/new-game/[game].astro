@@ -1,6 +1,8 @@
 ---
 import LayoutGame from "../../../layouts/LayoutGame.astro";
 import Button from "../../../ui/Button.astro";
+import { db } from "../../../lib/firebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
 import { Form } from "../../../components/Form";
 export async function getStaticPaths() {
   return [
@@ -12,14 +14,28 @@ export async function getStaticPaths() {
     { params: { game: "skribbl" } },
   ];
 }
+export async function getPlayers() {
+  const playersCollection = collection(db, "players");
+  const playersSnapshot = await getDocs(playersCollection);
+  const players = playersSnapshot.docs.map((doc) => {
+    const data = doc.data();
+    return {
+      values: {
+        name: data.name,
+        id: data.id,
+      },
+    };
+  });
+  return players;
+}
+const players = await getPlayers();
 const { game } = Astro.params;
 ---
 
 <LayoutGame title="Partidas">
   <main>
     <h1>Nueva partida de <span class="text-gradient">{game}</span></h1>
-    <Form game={game} client:load />
-    <Button title="Listo" path=`/games/${game}` target={false} />
+    <Form game={game} players={players} client:load />
     <Button title="Regresar a Inicio →" path="/" target={false} />
   </main>
 </LayoutGame>
